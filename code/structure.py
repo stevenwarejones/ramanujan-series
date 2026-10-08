@@ -1,4 +1,5 @@
 """Exact checks of the ramification/genus-character mechanism and winner metadata."""
+from run_paths import output_path,generated_input
 import json,math,time
 from pathlib import Path
 from flint import fmpz_poly,arb,acb,ctx
@@ -9,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     start=time.perf_counter();ctx.dps=100
     old=json.loads((ROOT/'data'/'search_results.json').read_text())
-    cat=json.loads((ROOT/'results'/'catalogue64.json').read_text())
+    cat=json.loads(generated_input('catalogue64.json').read_text())
     orders={o['d']:o for o in cat['orders']}
     winners=[]
     for k in range(1,17):
@@ -47,7 +48,7 @@ def main():
     result=dict(status='PASS',winner_rows=winners,character_checks=checks,
                 exact_checks=len(checks),elapsed=time.perf_counter()-start,
                 interpretation='Known CM/Fricke/genus theory explains both degree halving and radical absorption.')
-    (ROOT/'results'/'structure.json').write_text(json.dumps(result,indent=2))
+    output_path('structure.json').write_text(json.dumps(result,indent=2))
     print('STRUCTURE PASS',len(checks),'checks',time.perf_counter()-start)
 
 if __name__=='__main__':main()

@@ -5,6 +5,7 @@ on Gamma_0(17), index 18, hence Sturm bound 648. The Delta prefactor
 starts with q^324. F=q^306 Phi is holomorphic at infinity, so checking
 F through q^630 suffices. All arithmetic below is over the integers.
 """
+from run_paths import output_path
 import json,time
 from pathlib import Path
 from flint import fmpz_poly,fmpz_series,ctx
@@ -39,7 +40,7 @@ def main():
     out=dict(status='PASS',integer_q_coefficients_checked=631,weight=432,
              group='Gamma_0(17)',group_index=18,Sturm_bound=648,
              elapsed=time.perf_counter()-start)
-    (ROOT/'results'/'phi17_check.json').write_text(json.dumps(out,indent=2))
+    output_path('phi17_check.json').write_text(json.dumps(out,indent=2))
     print(json.dumps(out))
 
 if __name__=='__main__':main()

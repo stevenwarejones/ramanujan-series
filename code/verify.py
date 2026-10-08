@@ -1,9 +1,10 @@
 """Fast exact/ball checks of the local certificates. --full reruns completeness.
 Run from any directory. This is a verifier using FLINT, not formal proof software.
 """
-import argparse,subprocess,sys,json,hashlib
+import argparse,subprocess,sys,json,hashlib,os
 from pathlib import Path
 from flint import fmpz_poly
+from run_paths import RUN_ENV,fresh_run_directory
 ROOT=Path(__file__).resolve().parents[1]
 
 def run(name,*args):
@@ -11,6 +12,9 @@ def run(name,*args):
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--full',action='store_true');args=ap.parse_args()
+    directory=fresh_run_directory()
+    os.environ[RUN_ENV]=str(directory)
+    print('Fresh run outputs:',directory,flush=True)
     manifest=ROOT/'MANIFEST.json'
     if manifest.exists():
         m=json.loads(manifest.read_text())

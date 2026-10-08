@@ -407,20 +407,24 @@ frontier. Those polynomial heights depend on the chosen coordinate.
 ### Practical evaluation cost
 
 `python code/benchmark.py --digits 1000 10000 --repeats 5` compares the classic
-Ramanujan identity, the Chudnovsky identity [8, sections 4.2–4.3], and the
+Ramanujan identity [8, §4.2], the Chudnovsky identity [11], and the
 construction in section 5. Each run stops only when its approximation has a
 certified **absolute error below 10 to the negative target power**, including
 coefficient rounding and the infinite tail. This is not a comparison of rounded
 output strings.
 
+The original Chudnovsky source is their 1988 chapter [11]. Campbell–Cooper–Ye
+also restate this exact formula in §4.3, equation (4.2) of [8]; that is a
+convenient modern reference rather than its original attribution.
+
 | Target error exponent | Identity | Terms | Setup (ms) | Sum + bound (ms) | Total (ms) |
 | ---: | --- | ---: | ---: | ---: | ---: |
-| 1,000 | Ramanujan (1103) | 126 | 0.016 | 2.670 | 2.678 |
-| 1,000 | Chudnovsky | 71 | 0.013 | 1.906 | 1.922 |
-| 1,000 | CM degree 32 | 3 | 65.810 | 0.077 | 65.885 |
-| 10,000 | Ramanujan (1103) | 1,253 | 0.071 | 691.304 | 691.376 |
-| 10,000 | Chudnovsky | 706 | 0.143 | 418.010 | 418.153 |
-| 10,000 | CM degree 32 | 28 | 3260.401 | 15.586 | 3274.554 |
+| 1,000 | Ramanujan (1103) | 126 | 0.010 | 2.606 | 2.616 |
+| 1,000 | Chudnovsky | 71 | 0.012 | 1.550 | 1.560 |
+| 1,000 | CM degree 32 | 3 | 11.359 | 0.067 | 11.427 |
+| 10,000 | Ramanujan (1103) | 1,253 | 0.071 | 678.154 | 678.240 |
+| 10,000 | Chudnovsky | 706 | 0.139 | 417.043 | 417.187 |
+| 10,000 | CM degree 32 | 28 | 86.929 | 14.978 | 102.710 |
 
 **Protocol.** Entries are separate medians of five measured trials, so component
 medians need not sum exactly to the total median. There is one unmeasured warm-up
@@ -440,21 +444,57 @@ startup, exhaustive optimality search, theorem replay, independent reference-π
 checks, and writing the output JSON are excluded; filesystem and library caches
 are warm. Neither construction nor the stopping rule uses the reference π.
 
-**Interpretation.** At 10,000 digits the degree-32 formula uses only 28 terms,
-versus 706 for Chudnovsky, and its summation stage is much faster. Nevertheless,
-coefficient setup makes its total about 7.8 times longer in this implementation.
-The same effect is visible at 1,000 digits. These timings substantiate a limited
-claim: maximizing digits per term under a degree budget does not automatically
-minimize evaluation time. They do not establish the fastest π algorithm. In
-particular, none of these implementations uses binary splitting, and the results
-are not a benchmark against an optimized Chudnovsky or Arb π implementation.
+**Root isolation and refinement.** The archived initial benchmark
+(`results/benchmark.json`) has setup times of 65.810 ms and 3260.401 ms:
+about 49.5 times the work for ten times the target precision. Two timings alone
+do not establish an asymptotic complexity law. Profiling nevertheless identifies
+a concrete cause: the constructor computes all 32 roots at full precision,
+although it only needs the one real root in the specified interval.
 
-The immediate practical target is to simplify the degree-32 coefficient recipe
-and compare alternative generators, including their heights and isolation cost.
-A later performance study should include optimized baselines and repeated
-measurements on controlled hardware. Raw evidence is in
-[`results/benchmark.json`](results/benchmark.json); the implementation is
-[`code/benchmark.py`](code/benchmark.py).
+The default constructor isolates that root at 80 decimal digits, then doubles
+working precision and refines its enclosure. If I contains the root r and m is
+its midpoint, the mean value theorem puts r in `m - p(m)/p'(I)`, provided the
+derivative interval excludes zero. Intersecting this interval with I retains
+the root. Arb bounds every evaluation and rounding error; the code checks the
+achieved accuracy and refuses to proceed if refinement fails. No value of π is
+used. Tests compare this enclosure with an independent all-roots isolation at
+higher precision.
+
+Here is a comparison rerun with the same source, environment, target errors,
+five-trial protocol, and unchanged modular-polynomial evaluation. The
+`--root-method all-roots` option retains the baseline for reproduction. No root
+or coefficient is cached between trials, even in the Newton version.
+
+| Target error exponent | All-roots setup (ms) | Refined-root setup (ms) | All-roots total (ms) | Refined-root total (ms) |
+| ---: | ---: | ---: | ---: | ---: |
+| 1,000 | 56.434 | 11.359 | 56.507 | 11.427 |
+| 10,000 | 3185.657 | 86.929 | 3201.426 | 102.710 |
+
+**Interpretation.** At 10,000 digits, root refinement reduces setup by about
+36.6 times and total time by about 31.2 times. The degree-32 identity still uses
+28 terms, versus 706 for Chudnovsky. Its total is now about 0.103 seconds,
+compared with 0.417 seconds for this direct Chudnovsky implementation. At 1,000
+digits the degree-32 setup still outweighs its summation advantage: about
+11.4 ms total versus 1.56 ms for Chudnovsky. The crossover reinforces the need
+to measure both setup and summation at the requested accuracy.
+
+These measurements do not establish the fastest π algorithm. None of the three
+implementations uses binary splitting. An optimized Chudnovsky or Arb π
+implementation is the necessary next baseline, with repeated measurements on
+controlled hardware. Polynomial heights and modular-polynomial evaluation
+remain costs to measure when comparing alternative coefficient generators.
+
+Raw evidence: [`results/benchmark_newton.json`](results/benchmark_newton.json)
+for the default implementation and
+[`results/benchmark_all_roots.json`](results/benchmark_all_roots.json) for the
+comparison run. Both include source hashes, all samples, and certified errors.
+The initial measurement remains in
+[`results/benchmark.json`](results/benchmark.json). To repeat the comparison:
+
+```sh
+python code/benchmark.py --digits 1000 10000 --repeats 5 --root-method newton --output results/latest/benchmark-newton.json
+python code/benchmark.py --digits 1000 10000 --repeats 5 --root-method all-roots --output results/latest/benchmark-all-roots.json
+```
 
 ## 7. Literature audit and assessment
 
@@ -488,10 +528,10 @@ for constructing π series or as the fastest practical π algorithm.
 
 ## 8. Recommended next work
 
-1. Address the measured setup bottleneck: reduce the degree-32 A recipe directly
-   into Q(x), compare alternative generators and root-isolation methods, and
-   benchmark against optimized baselines at fixed certified accuracy. Charge
-   representation size and setup as well as summation time.
+1. Benchmark the refined-root constructor against optimized baselines at fixed
+   certified accuracy. Then reduce the degree-32 A recipe directly into Q(x) and
+   compare alternative generators, charging representation size, root refinement,
+   modular-polynomial evaluation, and summation time.
 2. Obtain an independent implementation/review of the degree-32 completeness
    proof, especially the modular maps and A-field descent. The reconstruction
    and checking programs both use FLINT; this is not cross-CAS verification.
@@ -526,3 +566,7 @@ for constructing π series or as the fastest practical π algorithm.
 10. Huber, Schultz and Ye, *Ramanujan–Sato series for 1/pi*, Acta Arithmetica 207
     (2023), 121–160: https://doi.org/10.4064/aa220621-19-12 ; author repository:
     https://scholarworks.utrgv.edu/mss_fac/366/
+11. D. V. Chudnovsky and G. V. Chudnovsky, *Approximations and complex
+    multiplication according to Ramanujan*, in *Ramanujan Revisited*
+    (Urbana-Champaign, Illinois, 1987), Academic Press, Boston, 1988,
+    pp. 375–472. See also the explicit restatement in [8, §4.3, equation (4.2)].

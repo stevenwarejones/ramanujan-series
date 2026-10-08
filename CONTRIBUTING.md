@@ -20,16 +20,29 @@ Separate candidate lower bounds from proved optima, and digits per term from
 end-to-end runtime. Cite primary literature and avoid novelty claims based only
 on not finding a matching formula in a search.
 
-Run `python code/verify.py` for routine changes. Changes to enumeration,
+Run `python -m unittest discover -s tests -v` and `python code/verify.py` for
+routine changes. Changes to enumeration,
 exclusion logic, or completeness claims also require
 `python code/verify.py --full`. Do not use Python's `-O` option: the verifier
 uses assertions.
 
 `MANIFEST.json` records SHA-256 hashes of source files, repository documentation,
-the verification workflow, and fixed inputs. Update the affected hashes when
+tests, workflows, and fixed inputs. Update the affected hashes when
 intentionally changing those files. It excludes itself and the regenerated
-`results/` directory. A matching hash detects a changed input; it does not prove
+`results/` snapshots. A matching hash detects a changed input; it does not prove
 that the input or the mathematics is correct.
+
+Fresh output goes under ignored `results/latest/`. Each verifier invocation
+creates and prints a fresh subdirectory shared by its child scripts, so a full
+replay consumes its own newly generated catalogue and selections without picking
+up a previous run. Standalone scripts write directly in `results/latest/`; a
+pipeline consumer prefers a predecessor there, falling back to the published
+snapshot if absent. Set `RAMANUJAN_RESULTS_DIR` to give a standalone pipeline its
+own directory. The defining `results/candidate32.json` certificate remains a
+fixed input; regenerating it does not silently replace the published identity.
+Review and deliberately copy generated files when updating a tracked snapshot.
+
+See [RELEASING.md](RELEASING.md) for the CI checks and release process.
 
 Record any substantive mathematical change in `REPORT.md`, including its
 scope, supporting sources, verification performed, and remaining limitations.

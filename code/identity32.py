@@ -7,6 +7,7 @@ Only the final comparison calls arb.pi(); the construction does not.
 import json,re,math,time,hashlib
 from pathlib import Path
 from flint import arb,ctx,fmpz_poly
+from run_paths import output_path
 ROOT=Path(__file__).resolve().parents[1]
 
 def read_phi():
@@ -34,7 +35,55 @@ def C(t):return (t-512)*(t+64)/((t+256)*(t-64))
 def Lrho(t):return 96*t/((t+256)*(t-64))
 def j_of_t(t):return (t+256)**3/t**2
 
-def construct(dps=2000):
+def isolated_root(poly):
+    """Select the real embedding from FLINT's certified root isolation."""
+    hits=[z.real for z,e in poly.complex_roots()
+          if e==1 and z.imag.is_zero() and -arb('4e-367')<z.real<-arb('2e-367')]
+    if len(hits)!=1:
+        raise ArithmeticError('Expected one simple real root in the defining interval')
+    return hits[0]
+
+
+def evaluate(coefficients,x):
+    value=arb(0)
+    for coefficient in reversed(coefficients):
+        value=value*x+coefficient
+    return value
+
+
+def refined_root(poly):
+    """Isolate once at 80 digits, then retain a certified root enclosure.
+
+    If r is in I and m is its midpoint, the mean value theorem gives
+    r in m - p(m)/p'(I), provided 0 is not in p'(I). Intersecting this
+    enclosure with I retains r. Arb evaluates every operation outwardly;
+    ordinary floating-point Newton iterates would not suffice here.
+    """
+    target=ctx.prec
+    try:
+        ctx.dps=80
+        root=isolated_root(poly)
+        coefficients=list(poly.coeffs())
+        derivative=[i*c for i,c in enumerate(coefficients)][1:]
+        while True:
+            ctx.prec=min(target,2*ctx.prec)
+            for _ in range(8):
+                midpoint=root.mid()
+                slope=evaluate(derivative,root)
+                if slope.contains(0):
+                    raise ArithmeticError('Root refinement derivative contains zero')
+                root=root.intersection(midpoint-evaluate(coefficients,midpoint)/slope)
+                if root.rel_accuracy_bits()>=ctx.prec-12:
+                    break
+            else:
+                raise ArithmeticError('Root refinement did not reach the requested accuracy')
+            if ctx.prec==target:
+                return root
+    finally:
+        ctx.prec=target
+
+
+def construct(dps=2000,root_method='newton'):
     ctx.dps=dps;p=17;N=73117
     Y=2216752650+668376072*arb(11).sqrt();x0=-1/Y**2
     A0=(-37515813+11937508*arb(11).sqrt())/6523272
@@ -46,10 +95,11 @@ def construct(dps=2000):
     J=j_of_t(t0)
     psi0=1+6*(-A0/B0+Lrho(t0))/C(t0)
     data=json.loads((ROOT/'results'/'candidate32.json').read_text())
-    poly=fmpz_poly(data['p']);zs=poly.complex_roots()
-    hits=[z for z,e in zs if z.imag.contains(0) and -arb('4e-367')<z.real<-arb('2e-367')]
-    assert len(hits)==1
-    x=hits[0].real;B=(N*(1-x)).sqrt();s=B/arb(N).sqrt()
+    poly=fmpz_poly(data['p'])
+    if root_method=='newton':x=refined_root(poly)
+    elif root_method=='all-roots':x=isolated_root(poly)
+    else:raise ValueError(root_method)
+    B=(N*(1-x)).sqrt();s=B/arb(N).sqrt()
     t=64*(1+s)**2/x;K=j_of_t(t)
     dv=derivatives(read_phi(),J,K)
     assert dv[0,0].contains(0)
@@ -92,7 +142,7 @@ def main():
                 pi_used_to_construct_coefficients=False,phi17_source='https://math.mit.edu/~drew/modpolys/jfiles/phi_j_17.txt',
                 phi17_sha256=hashlib.sha256((ROOT/'data'/'phi_j_17.txt').read_bytes()).hexdigest(),
                 A=str(A),B=str(B),x=str(x),truncations=results,elapsed=time.perf_counter()-start)
-    (ROOT/'results'/'identity32.json').write_text(json.dumps(result,indent=2))
+    output_path('identity32.json').write_text(json.dumps(result,indent=2))
     print(json.dumps(dict(N=result['N'],pi_used_to_construct_coefficients=False,
                          truncations=[{'terms':r['terms'],'error_digits':r['certified_absolute_error_digits']} for r in results],
                          elapsed=result['elapsed']),indent=2))
