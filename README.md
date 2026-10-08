@@ -24,6 +24,10 @@ without making their constants arbitrarily complicated?** It studies four
 classical families of these identities, explains some of their arithmetic
 structure, and provides computations that readers can reproduce.
 
+For the geometric motivation—from circles and torus paths to higher-dimensional
+questions—read [Geometric Intuition and Open Questions](EXPLORATIONS.md). It
+separates intuition, established mathematics, repository results, and open directions.
+
 ## What “complicated” means here
 
 We measure **algebraic degree**, one way to describe the arithmetic complexity
@@ -146,6 +150,7 @@ write their results into `results/`.
 | Location | Contents |
 | --- | --- |
 | [REPORT.md](REPORT.md) | Mathematical arguments, results, timings, sources, and limits |
+| [EXPLORATIONS.md](EXPLORATIONS.md) | Geometric motivation, research questions, and open directions |
 | [code/](code/) | Construction, enumeration, exact checks, and benchmark |
 | [data/](data/) | Fixed inputs and search records |
 | [results/](results/) | Certificates, exclusion ledgers, timing samples, and logs |
