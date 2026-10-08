@@ -1,0 +1,78 @@
+Input/source manifest PASS 27 files
+Degree-32 x/B certificate PASS
+Exact modular rational maps PASS
+{
+  "candidate_polynomials": 3214,
+  "exact_Rouche_exclusions": 3175,
+  "ball_root_sets": 39,
+  "budgets_certified": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "elapsed_seconds": 0.1685648519996903,
+  "sha256_search_results": "2018861ccda51da3127913456430b5e836d5c22134c46921d71f6d27d5256ab0",
+  "winners": {
+    "2": {
+      "d": 49588,
+      "parameter_degree": 16,
+      "full_degree": 16,
+      "x": "[-3.13399977477985060040738285274765512044794948482747188386665318191494646053673170728243714596178502484628237896895436893e-150 +/- 3.39e-270]",
+      "rate": "[149.503901039077343036327904843171425662731267974747039688468517113750713583533928976968903626941441934504153879856228457 +/- 4.74e-118]"
+    },
+    "3": {
+      "d": 49008,
+      "parameter_degree": 16,
+      "full_degree": 16,
+      "x": "[2.25257418692437804506688176565629614719401367959626133265565088384280382282826005354706035380836961049778256697786245778e-99 +/- 1.86e-219]",
+      "rate": "[98.6473208969343260517754308116372624700042276185543696039826770053727050556339314530214387740399474477276281499453329246 +/- 7.48e-119]"
+    },
+    "4": {
+      "d": 18748,
+      "parameter_degree": 16,
+      "full_degree": 16,
+      "x": "[2.50437214198290492896485689349920326129204433973675271813645165449251885552571267766879079780871296800929856768633225612e-92 +/- 2.71e-212]",
+      "rate": "[91.6013011358445923319167526816304233511476579294881912545039445287398514236872501084275661345487769401321822964662203240 +/- 7.04e-119]"
+    }
+  }
+}
+Global frontier beats every level-1 conjugate: 525 orders; 0 root sets
+STRUCTURE PASS 28 checks 0.3850065939986962
+{"status": "PASS", "integer_q_coefficients_checked": 631, "weight": 432, "group": "Gamma_0(17)", "group_index": 18, "Sturm_bound": 648, "elapsed": 0.6584474379997118}
+{
+  "N": 73117,
+  "pi_used_to_construct_coefficients": false,
+  "truncations": [
+    {
+      "terms": 1,
+      "error_digits": 364
+    },
+    {
+      "terms": 2,
+      "error_digits": 730
+    },
+    {
+      "terms": 3,
+      "error_digits": 1097
+    },
+    {
+      "terms": 4,
+      "error_digits": 1463
+    }
+  ],
+  "elapsed": 0.17803404799997224
+}
+PASS: requested checks completed. The report identifies the mathematical inputs.

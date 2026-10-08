@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "integer_q_coefficients_checked": 631,
+  "weight": 432,
+  "group": "Gamma_0(17)",
+  "group_index": 18,
+  "Sturm_bound": 648,
+  "elapsed": 0.6584474379997118
+}

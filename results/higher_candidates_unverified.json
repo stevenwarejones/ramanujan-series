@@ -1,0 +1,55 @@
+{
+  "status": "candidate selection only; incomplete seed fields and unverified field degrees",
+  "rows": [
+    {
+      "budget": 32,
+      "N": 73117,
+      "d": 292468,
+      "h": 64,
+      "predicted_degree": 32,
+      "fundamental_d": 1012,
+      "conductor": 17,
+      "rate_estimate": "[366.5212453310619038906676 +/- 7.90e-23]"
+    },
+    {
+      "budget": 64,
+      "N": 243133,
+      "d": 972532,
+      "h": 128,
+      "predicted_degree": 64,
+      "fundamental_d": 1012,
+      "conductor": 31,
+      "rate_estimate": "[670.345527339840289086743 +/- 3.32e-22]"
+    },
+    {
+      "budget": 80,
+      "N": 346357,
+      "d": 1385428,
+      "h": 152,
+      "predicted_degree": 76,
+      "fundamental_d": 1012,
+      "conductor": 37,
+      "rate_estimate": "[800.5559339150310255993471 +/- 8.69e-23]"
+    },
+    {
+      "budget": 96,
+      "N": 558877,
+      "d": 2235508,
+      "h": 192,
+      "predicted_degree": 96,
+      "fundamental_d": 1012,
+      "conductor": 47,
+      "rate_estimate": "[1017.573278207015586453687 +/- 2.72e-22]"
+    },
+    {
+      "budget": 128,
+      "N": 953197,
+      "d": 3812788,
+      "h": 252,
+      "predicted_degree": 126,
+      "fundamental_d": 1588,
+      "conductor": 49,
+      "rate_estimate": "[1329.657066872107307109268 +/- 3.13e-22]"
+    }
+  ]
+}

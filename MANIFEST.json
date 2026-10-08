@@ -1,0 +1,31 @@
+{
+  "sha256": {
+    ".github/workflows/verify.yml": "6d87b58ef3c3befc3fd97ad1c23a485b5abd02d023a43c7ae25e08dea6627b4f",
+    ".gitignore": "b5186c65b62761610477c1b893bd6804864f7a611386a1040e0d2678e05b67b3",
+    "CONTRIBUTING.md": "0a8b3cd4fa6dfd9c9c8d046f9ed03198662df6fd6c553a42215aa7d806432bb7",
+    "README.md": "afc930e88bba786883457899a7a9cb85ccee7a96f22c95acaba11390ade66b03",
+    "REPORT.md": "4ad309d4a409fc58d7e63702e1e47973d1959342cb95060a73a535b2ff6babd1",
+    "code/catalogue.py": "215ff3eb978e43cd2b0f159f8f5507474a4c183016fd3a123c13250d9fc917d9",
+    "code/check_level1.py": "79c1a41035b79f3bab34f1ad91a04f601c06609ef16e03914fe72b7fa5c09f9b",
+    "code/check_maps.py": "10662a414b6f5d613358ffd34c1916baa6f7d9739d319eff581d759b61469925",
+    "code/check_phi17.py": "ffcdd0c795807e5ddc85bc5c60455b57471a804eb6434362ee2840458cf77336",
+    "code/extend32.py": "e59b0643f3855b0799359e3841a4078fa5a6d1f7ced69d86507898074562f56a",
+    "code/higher_candidates.py": "4a8a2499c2586cd9de6172c37e73e0aebc249db6a1be7c864496536a61461338",
+    "code/identity32.py": "6766e7dc48ec2f05fa0a8311f07825afe982ae84b6b55ca74828f3f044c942ae",
+    "code/new_candidate.py": "0e5eae439d6a964ee77ff85e751f4f704d08e453ecaef3324c852239c4f9f8f3",
+    "code/polynomials.py": "f351ee38ce0cdfe0183db9cc5b00feb81615ffe9d7c573d6c87d9aaf0f1396d0",
+    "code/rank16.py": "6616dfdfd99ed073e14fa8bccc1fb40dff44ffad7beeb36c28fb967155cb75c8",
+    "code/reconstruct.py": "1aec72bdd15fa45186801c402b0f4318286453b9b06793ad9101df35eb8a673a",
+    "code/select_higher.py": "11fea2e15396e0b071199a2de4c61b053df855b396050e334475223559b143a2",
+    "code/structure.py": "fb304c2d377b1082f2ea5790636f4781891b84fa1bdd719993498ee1ba9d280a",
+    "code/verify.py": "9dc6f8241efbfe3180659c15a080eea6b7c9484815c36e963690f7ca0bf1f6d0",
+    "data/audit_results.json": "0e45331896f1aee2609fe94283e03c403a64326b382a7335d39380333c6384bf",
+    "data/field_results.json": "6fdad8616579c7f664db1257d92856498e74919edffb680c1943b94180cc95d1",
+    "data/identity_results.json": "fc27136c7df0aadb7fe3a6cd10b4f26272e6527bc7deadc50d8ac213d51d66e4",
+    "data/level1_frontier.json": "9f2f5c5a13d5263a806b27d36ebadcfea8644ee0e38f11ef36fc616618da30aa",
+    "data/orders32.json": "0ce32418acba3ac02099660d0a05969dc486075b9606048b6af46d8c3ca48314",
+    "data/phi_j_17.txt": "5724dfa8b36666505171d1e0be0900b3d8a04b1f22a293a4890a6729b126cc9a",
+    "data/search_results.json": "2018861ccda51da3127913456430b5e836d5c22134c46921d71f6d27d5256ab0",
+    "requirements.txt": "4cef508304e84c21f73cf412712165dc26e40978cb784bc08a876948b559d90d"
+  }
+}

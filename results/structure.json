@@ -1,0 +1,378 @@
+{
+  "status": "PASS",
+  "winner_rows": [
+    {
+      "budget": 1,
+      "N": 37,
+      "degree": 1,
+      "h": 2,
+      "fundamental_d": 148,
+      "conductor": 1,
+      "rate": "5.89093717026364"
+    },
+    {
+      "budget": 2,
+      "N": 253,
+      "degree": 2,
+      "h": 4,
+      "fundamental_d": 1012,
+      "conductor": 1,
+      "rate": "19.293494463886606"
+    },
+    {
+      "budget": 3,
+      "N": 397,
+      "degree": 3,
+      "h": 6,
+      "fundamental_d": 1588,
+      "conductor": 1,
+      "rate": "24.776766296676296"
+    },
+    {
+      "budget": 4,
+      "N": 445,
+      "degree": 4,
+      "h": 8,
+      "fundamental_d": 1780,
+      "conductor": 1,
+      "rate": "26.373310749349567"
+    },
+    {
+      "budget": 5,
+      "N": 1213,
+      "degree": 5,
+      "h": 10,
+      "fundamental_d": 4852,
+      "conductor": 1,
+      "rate": "45.1104637076768"
+    },
+    {
+      "budget": 6,
+      "N": 1285,
+      "degree": 6,
+      "h": 12,
+      "fundamental_d": 5140,
+      "conductor": 1,
+      "rate": "46.5004181932979"
+    },
+    {
+      "budget": 7,
+      "N": 2293,
+      "degree": 7,
+      "h": 14,
+      "fundamental_d": 9172,
+      "conductor": 1,
+      "rate": "62.92530318426701"
+    },
+    {
+      "budget": 8,
+      "N": 2893,
+      "degree": 8,
+      "h": 16,
+      "fundamental_d": 11572,
+      "conductor": 1,
+      "rate": "70.9769462879882"
+    },
+    {
+      "budget": 9,
+      "N": 5413,
+      "degree": 9,
+      "h": 18,
+      "fundamental_d": 21652,
+      "conductor": 1,
+      "rate": "97.97314827691604"
+    },
+    {
+      "budget": 10,
+      "N": 5413,
+      "degree": 9,
+      "h": 18,
+      "fundamental_d": 21652,
+      "conductor": 1,
+      "rate": "97.97314827691604"
+    },
+    {
+      "budget": 11,
+      "N": 6637,
+      "degree": 11,
+      "h": 22,
+      "fundamental_d": 26548,
+      "conductor": 1,
+      "rate": "108.74447954879784"
+    },
+    {
+      "budget": 12,
+      "N": 7837,
+      "degree": 12,
+      "h": 24,
+      "fundamental_d": 31348,
+      "conductor": 1,
+      "rate": "118.3756764196508"
+    },
+    {
+      "budget": 13,
+      "N": 10333,
+      "degree": 13,
+      "h": 26,
+      "fundamental_d": 41332,
+      "conductor": 1,
+      "rate": "136.28247873373036"
+    },
+    {
+      "budget": 14,
+      "N": 10333,
+      "degree": 13,
+      "h": 26,
+      "fundamental_d": 41332,
+      "conductor": 1,
+      "rate": "136.28247873373036"
+    },
+    {
+      "budget": 15,
+      "N": 10957,
+      "degree": 15,
+      "h": 30,
+      "fundamental_d": 43828,
+      "conductor": 1,
+      "rate": "140.4087957911015"
+    },
+    {
+      "budget": 16,
+      "N": 12397,
+      "degree": 16,
+      "h": 32,
+      "fundamental_d": 1012,
+      "conductor": 7,
+      "rate": "149.50390103907733"
+    }
+  ],
+  "character_checks": [
+    {
+      "N": 5,
+      "h": 2,
+      "parameter_degree": 1,
+      "full_x_B_degree": 1,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 9,
+      "h": 2,
+      "parameter_degree": 1,
+      "full_x_B_degree": 2,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 13,
+      "h": 2,
+      "parameter_degree": 1,
+      "full_x_B_degree": 1,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 17,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 25,
+      "h": 2,
+      "parameter_degree": 1,
+      "full_x_B_degree": 2,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 33,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 37,
+      "h": 2,
+      "parameter_degree": 1,
+      "full_x_B_degree": 1,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 41,
+      "h": 8,
+      "parameter_degree": 4,
+      "full_x_B_degree": 8,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 49,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 57,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 65,
+      "h": 8,
+      "parameter_degree": 4,
+      "full_x_B_degree": 8,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 73,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 81,
+      "h": 6,
+      "parameter_degree": 3,
+      "full_x_B_degree": 6,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 89,
+      "h": 12,
+      "parameter_degree": 6,
+      "full_x_B_degree": 12,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 97,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 4,
+      "genus_sign": 1,
+      "N_mod_8": 1
+    },
+    {
+      "N": 253,
+      "h": 4,
+      "parameter_degree": 2,
+      "full_x_B_degree": 2,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 397,
+      "h": 6,
+      "parameter_degree": 3,
+      "full_x_B_degree": 3,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 445,
+      "h": 8,
+      "parameter_degree": 4,
+      "full_x_B_degree": 4,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 1213,
+      "h": 10,
+      "parameter_degree": 5,
+      "full_x_B_degree": 5,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 1285,
+      "h": 12,
+      "parameter_degree": 6,
+      "full_x_B_degree": 6,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 2293,
+      "h": 14,
+      "parameter_degree": 7,
+      "full_x_B_degree": 7,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 2893,
+      "h": 16,
+      "parameter_degree": 8,
+      "full_x_B_degree": 8,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 5413,
+      "h": 18,
+      "parameter_degree": 9,
+      "full_x_B_degree": 9,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 6637,
+      "h": 22,
+      "parameter_degree": 11,
+      "full_x_B_degree": 11,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 7837,
+      "h": 24,
+      "parameter_degree": 12,
+      "full_x_B_degree": 12,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 10333,
+      "h": 26,
+      "parameter_degree": 13,
+      "full_x_B_degree": 13,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 10957,
+      "h": 30,
+      "parameter_degree": 15,
+      "full_x_B_degree": 15,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    },
+    {
+      "N": 12397,
+      "h": 32,
+      "parameter_degree": 16,
+      "full_x_B_degree": 16,
+      "genus_sign": -1,
+      "N_mod_8": 5
+    }
+  ],
+  "exact_checks": 28,
+  "elapsed": 0.38445044399850303,
+  "interpretation": "Known CM/Fricke/genus theory explains both degree halving and radical absorption."
+}
