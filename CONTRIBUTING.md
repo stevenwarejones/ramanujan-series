@@ -44,6 +44,10 @@ Review and deliberately copy generated files when updating a tracked snapshot.
 
 See [RELEASING.md](RELEASING.md) for the CI checks and release process.
 
+For documentation figures, use the optional rendering dependencies and workflow
+in [assets/figures/README.md](assets/figures/README.md). Preview generation writes
+to ignored `results/latest/figures/`; publishing revised SVGs is an explicit step.
+
 Record any substantive mathematical change in `REPORT.md`, including its
 scope, supporting sources, verification performed, and remaining limitations.
 

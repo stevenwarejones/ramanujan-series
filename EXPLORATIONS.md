@@ -5,6 +5,11 @@ edge in your mind. The curve is simple, but the number that measures a complete
 turn also appears in formulas filled with factorials, square roots, and enormous
 integers. What connects those two experiences of π?
 
+![A museum bench faces a framed indigo circle, with a copper arc suggesting a path traced around its circumference.](assets/figures/museum-circle.png)
+
+*The circle as an object of contemplation: a visual starting point for the
+questions below.*
+
 That question motivates this project: **understand the arithmetic organization
 behind the identities, and use it to ask better questions about convergence.**
 This note preserves the geometric intuitions and research directions behind the
@@ -87,6 +92,13 @@ first target than asking whether every new silhouette has a unique π identity.
 winding directions, and infinitely many ways to combine them and return to the
 starting point. This was a particularly productive question: could those different
 journeys expose the integers hidden inside the formulas?
+
+![Three closed torus paths with winding numbers 1,0; 0,1; and 2,3, shown beside their straight-line paths on a repeating lattice.](assets/figures/torus-and-lattice.svg)
+
+*The filled and open lattice endpoints become the same point on the torus.
+The lattice uses normalized coordinates; the torus drawings are topological
+sketches, not an isometric embedding of a flat torus. Infinitely many winding
+classes can be built from two basic directions.*
 
 **Established mathematics.** In the complex-torus model, opposite edges of a
 parallelogram are identified. Its two lattice periods, ω₁ and ω₂, give the periods

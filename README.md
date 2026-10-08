@@ -62,6 +62,12 @@ coefficient-field arguments give these optimal convergence rates:
 | 16 | 149.503901 |
 | 32 | 366.521245 |
 
+![Certified convergence rates rise from 19.29 to 366.52 digits per term at joint degree budgets 2, 4, 8, 16, and 32.](assets/figures/convergence-frontier.svg)
+
+*Each point is a certified optimum within the four fixed CM families. The
+horizontal scale doubles at each tick; no interpolation between budgets is
+asserted. Degree measures arithmetic complexity, not evaluation time.*
+
 The degree-32 formula has a construction that does not use π as an input.
 Four terms give an approximation to π with certified absolute error below
 10⁻¹⁴⁶³. The [report](REPORT.md#6-results-and-what-each-row-establishes) also lists
@@ -79,6 +85,12 @@ optimization table has not been established, and the work has not been
 independently refereed or formally verified in a proof assistant.
 
 ## Fewer terms does not necessarily mean less time
+
+![Setup and summation timings at two precisions: Chudnovsky is faster at the 1,000-digit target, while the refined degree-32 implementation is faster at 10,000 digits.](assets/figures/terms-and-time.svg)
+
+*The targets bound absolute error by 10⁻¹⁰⁰⁰ and 10⁻¹⁰⁰⁰⁰. The panels use
+milliseconds and seconds, respectively. Bar segments show median stage times;
+dots show median total times, which need not equal the sum of those medians.*
 
 At a target absolute error below 10⁻¹⁰⁰⁰⁰, the default implementation gives:
 
@@ -172,6 +184,7 @@ by deliberately reviewing and copying a run's output.
 | --- | --- |
 | [REPORT.md](REPORT.md) | Mathematical arguments, results, timings, sources, and limits |
 | [EXPLORATIONS.md](EXPLORATIONS.md) | Geometric motivation, research questions, and open directions |
+| [assets/figures/](assets/figures/) | Documentation graphics, sources, and regeneration instructions |
 | [RELEASING.md](RELEASING.md) | CI tests, research bundles, and tagged releases |
 | [tests/](tests/) | Arithmetic, root-refinement, and output-isolation regression tests |
 | [code/](code/) | Construction, enumeration, exact checks, and benchmark |

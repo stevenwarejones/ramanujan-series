@@ -248,6 +248,13 @@ level-2 winners and opposite-sign controls, were checked. Finite checks support
 the implementation; the argument supplies the general explanation. No novelty
 claim is made for this consequence of classical theory.
 
+![The involution t to 4096 over t pairs modular values with the same x. For N congruent to 5 modulo 8, two sign changes cancel in B; A requires the separate descent argument.](assets/figures/symmetry-and-degree.svg)
+
+*Schematic eight-to-four pairing, not a numerical plot of the degree-32 roots.
+Identifying the paired t-values halves the parameter degree. The full identity
+benefits only when B and A also lie in the smaller field, as established above
+and in section 3.*
+
 ### Conductors give the second part of the story
 
 For squarefree M≡5 mod8, let h0=h(-4M). For odd conductor f,
