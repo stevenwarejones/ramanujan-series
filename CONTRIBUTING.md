@@ -33,3 +33,10 @@ that the input or the mathematics is correct.
 
 Record any substantive mathematical change in `REPORT.md`, including its
 scope, supporting sources, verification performed, and remaining limitations.
+
+For GitHub math rendering, use fenced `math` blocks and GitHub's dollar/backtick
+inline delimiters. Use explicit braces for superscripts and avoid Markdown
+emphasis characters in TeX; for a superscript star, use `^{\ast}`. Use
+`\mathrm{Im}` for the imaginary-part label. This keeps Markdown preprocessing
+from changing the expressions before the math renderer receives them.
+See [GitHub's math formatting guide](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions).

@@ -2,9 +2,10 @@
   "sha256": {
     ".github/workflows/verify.yml": "6d87b58ef3c3befc3fd97ad1c23a485b5abd02d023a43c7ae25e08dea6627b4f",
     ".gitignore": "b5186c65b62761610477c1b893bd6804864f7a611386a1040e0d2678e05b67b3",
-    "CONTRIBUTING.md": "0a8b3cd4fa6dfd9c9c8d046f9ed03198662df6fd6c553a42215aa7d806432bb7",
-    "README.md": "afc930e88bba786883457899a7a9cb85ccee7a96f22c95acaba11390ade66b03",
-    "REPORT.md": "4ad309d4a409fc58d7e63702e1e47973d1959342cb95060a73a535b2ff6babd1",
+    "CONTRIBUTING.md": "c3298cb0cbd7157a4991acbcd61a59199e41b3ab7be20b2279693bea20679af8",
+    "README.md": "10f93491a269d25118c3c67093554433748091100ff0bd415adb238e127d9cb8",
+    "REPORT.md": "aee66214a851ee25f41ac346686264d97b40e0f387f6d5f0768c0041f299661d",
+    "code/benchmark.py": "c4d499a73faafe3c0d5a43cc03712b74adc7fd1fb0561317438f23c186264a1e",
     "code/catalogue.py": "215ff3eb978e43cd2b0f159f8f5507474a4c183016fd3a123c13250d9fc917d9",
     "code/check_level1.py": "79c1a41035b79f3bab34f1ad91a04f601c06609ef16e03914fe72b7fa5c09f9b",
     "code/check_maps.py": "10662a414b6f5d613358ffd34c1916baa6f7d9739d319eff581d759b61469925",

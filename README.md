@@ -1,42 +1,112 @@
 # Ramanujan-Type Series for 1/π
 
-**Exact arithmetic, convergence, and algebraic complexity.**
+**How much convergence can simple algebraic constants buy?**
 
-How quickly can a Ramanujan-type series converge when the algebraic complexity
-of **all** its coefficients is bounded? This repository studies that question
-in four classical families arising from complex multiplication (CM).
+Ramanujan found that π, the number connecting a circle's circumference to its
+diameter, can be recovered from a remarkable sum:
 
-## Current results
+```math
+\frac{1}{\pi}
+=\frac{2\sqrt{2}}{9801}
+\sum_{n=0}^{\infty}
+\frac{(4n)!\,(1103+26390n)}{(n!)^{4}\,396^{4n}}.
+```
 
-The current computation gives the following optimal rates **within the four
-specified canonical CM families**. A degree budget means *at most* that degree.
+Start at n = 0, then add the terms for n = 1, 2, and so on; the exclamation mark
+means factorial, a product of successive positive integers, with 0! = 1.
+Multiply the sum by the factor in front to approach 1/π, then take the reciprocal
+to recover π. Each additional term contributes roughly
+eight decimal digits of accuracy. This is Ramanujan's classic identity, not a
+formula discovered by this project; see the [literature and sources](REPORT.md#sources).
 
-| Full coefficient degree budget | Decimal digits per term (asymptotic) |
-| --- | ---: |
+This repository asks: **can similar formulas gain many more digits per term
+without making their constants arbitrarily complicated?** It studies four
+classical families of these identities, explains some of their arithmetic
+structure, and provides computations that readers can reproduce.
+
+## What “complicated” means here
+
+We measure **algebraic degree**, one way to describe the arithmetic complexity
+of a number. Ordinary fractions have degree 1. The square root of 2 has degree
+2 because its simplest polynomial equation is x² − 2 = 0. When several constants
+appear in a formula, we count the number system they need **together**: the
+square roots of 2 and 3 together require degree 4, even though each has degree 2.
+
+Degree does not count how many digits a constant needs to describe it, or how
+long a computer takes to calculate it. We therefore report convergence and
+actual evaluation time separately.
+
+## What the calculations establish
+
+Within the **four precisely specified families**, exhaustive computations and
+coefficient-field arguments give these optimal convergence rates:
+
+| Allowed joint degree, at most | Decimal digits gained per term, asymptotically |
+| ---: | ---: |
 | 2 | 19.293494 |
 | 4 | 26.373311 |
 | 8 | 70.976946 |
 | 16 | 149.503901 |
 | 32 | 366.521245 |
 
-The degree-32 identity has an algebraic construction that does not use π as an
-input. Four terms give an approximation to π with certified absolute error below
-10⁻¹⁴⁶³. The report also includes higher-degree candidates; their optimality has
-**not** been established. These are convergence rates, not runtime benchmarks.
+The degree-32 formula has a construction that does not use π as an input.
+Four terms give an approximation to π with certified absolute error below
+10⁻¹⁴⁶³. The [report](REPORT.md#6-results-and-what-each-row-establishes) also lists
+higher-degree candidates, whose optimality remains open in this project.
 
-See [the research report](REPORT.md) for definitions, derivations, literature,
-the completeness argument, and the limits of the claims. General construction
-methods are classical; novelty of the exact optimization table remains unverified.
+The arithmetic explanation matters as much as the table. Symmetries can make
+apparently different constants share the same number system. Certain changes
+to the underlying geometry increase convergence much more than they increase
+the degree. [Section 4](REPORT.md#4-hidden-arithmetic-organization-why-the-winners-change)
+explains that mechanism.
 
-## Scope
+These are optima in a defined mathematical class, not among every conceivable
+formula for π. The construction methods are classical. Novelty of the exact
+optimization table has not been established, and the work has not been
+independently refereed or formally verified in a proof assistant.
 
-Research snapshot, 8 October 2026. Read [REPORT.md](REPORT.md) for scope, proofs, results,
-literature comparison, and remaining gaps. This is a reproducible research package,
-not a claim of a new general construction of pi series.
+## Fewer terms does not necessarily mean less time
 
-The fixed kernels are `(s)_n (1/2)_n (1-s)_n/(n!)^3` for
-`s=1/6,1/4,1/3,1/2`. Cost is the **joint** degree `[Q(A,B,x):Q]` after
-writing the right side as `sum (A+Bn)c_n x^n = 1/pi`. Terms are not grouped.
+At a target absolute error below 10⁻¹⁰⁰⁰⁰, this implementation needs far fewer
+terms for the degree-32 identity, but takes longer overall:
+
+| Identity | Terms | Coefficient setup | Sum and error bound | Total |
+| --- | ---: | ---: | ---: | ---: |
+| Ramanujan (1103) | 1,253 | 0.00007 s | 0.69130 s | 0.69138 s |
+| Chudnovsky | 706 | 0.00014 s | 0.41801 s | 0.41815 s |
+| CM degree 32 | 28 | 3.26040 s | 0.01559 s | 3.27455 s |
+
+These are medians of five trials on one shared Linux machine, with one FLINT
+thread. Every trial rebuilds its coefficients. All three use the same simple
+summation and rigorous error-bound routine; none uses an optimized
+binary-splitting implementation. The degree-32 formula is faster in the
+summation stage here, but its setup dominates. This is a comparison of these
+implementations, not a universal speed ranking.
+
+[Full method, environment, and 1,000-digit results](REPORT.md#practical-evaluation-cost)
+are in the report; [raw samples](results/benchmark.json) are included.
+
+## Technical scope
+
+For readers familiar with hypergeometric series, the fixed normalized kernels
+and identities are:
+
+```math
+c_{s,n}=\frac{(s)_n(1/2)_n(1-s)_n}{(n!)^{3}},
+\qquad s\in\{1/6,1/4,1/3,1/2\},
+\qquad \frac{1}{\pi}=\sum_{n=0}^{\infty}(A+Bn)c_{s,n}x^{n}.
+```
+
+The search ranges over canonical complex multiplication (CM) constructions,
+including conjugate parameters and nonmaximal quadratic orders. CM means the
+modular parameter is an imaginary quadratic point. The cost is
+$`[\mathbb{Q}(A,B,x):\mathbb{Q}]`$, after absorbing every outside prefactor;
+terms are not regrouped. The objective is $`-\log_{10}|x|`$ for $`0<|x|<1`$.
+
+[REPORT.md](REPORT.md) gives the finite reduction, coefficient-field descent,
+exact construction, completeness ledger, benchmarks, literature comparison,
+and open tasks. The current completeness result reaches degree 32; the larger
+candidate rows do not extend that completeness claim.
 
 ## Reproduce
 
@@ -50,46 +120,42 @@ python code/verify.py
 ```
 
 On Windows, activate the environment with `.venv\Scripts\activate` instead.
-For the exhaustive replay:
+For an exhaustive replay or a timing comparison:
 
 ```sh
 python code/verify.py --full
+python code/benchmark.py --digits 1000 10000 --repeats 5
 ```
 
-The quick command checks the degree-32 parameter/radical certificate, the
-previous degree-16 ranking, the genus-character examples, the modular polynomial
-by an exact Sturm-bound test, and the pi-free algebraic construction and error
-bounds for the new degree-32 identity. The full command also reconstructs the
-entire low-degree candidate universe and reruns the exhaustive degree-32
-exclusion. Full verification can take tens of minutes depending on hardware.
+The quick verifier checks the degree-32 parameter/radical certificate, the
+degree-16 ranking, genus-character examples, the modular polynomial through an
+exact Sturm-bound test, and the algebraic construction and error bounds for the
+degree-32 identity. The full command reconstructs the candidate universe and
+replays the exhaustive degree-32 exclusion; it can take tens of minutes.
 
-The manifest covers source code and fixed input data, not regenerated output
-files whose timings and ball precision strings can vary between runs. Run each
-command without `python -O`: the programs intentionally use assertions.
+GitHub Actions runs quick verification on pushes and pull requests. To request
+an exhaustive replay, use **Actions → Verify → Run workflow** and enable `full`.
+Timings are run separately and are not CI performance thresholds.
 
-GitHub Actions runs the quick verification on pushes and pull requests. An
-exhaustive replay can be requested through **Actions → Verify → Run workflow**
-by enabling `full`. The local commands work without GitHub.
+Run without `python -O`: the programs intentionally use assertions. No network
+access is needed after dependencies are installed. The benchmark and verifier
+write their results into `results/`.
 
-## Repository layout
+## Repository guide and trust assumptions
 
-- [`code/`](code/): exact arithmetic, construction, enumeration, and verification.
-- [`data/`](data/): fixed inputs and earlier search records.
-- [`results/`](results/): saved certificates, exclusion ledgers, and run logs.
-- [`REPORT.md`](REPORT.md): mathematical arguments, sources, and research status.
-- [`MANIFEST.json`](MANIFEST.json): SHA-256 hashes of source and fixed inputs.
+| Location | Contents |
+| --- | --- |
+| [REPORT.md](REPORT.md) | Mathematical arguments, results, timings, sources, and limits |
+| [code/](code/) | Construction, enumeration, exact checks, and benchmark |
+| [data/](data/) | Fixed inputs and search records |
+| [results/](results/) | Certificates, exclusion ledgers, timing samples, and logs |
+| [MANIFEST.json](MANIFEST.json) | SHA-256 hashes of source and fixed inputs |
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the evidence required for new results.
+The computations rely on the cited classification and CM theorems, FLINT's
+exact polynomial arithmetic and certified Hilbert class polynomials, and Arb
+ball arithmetic. The manifest detects changed inputs; it is not itself a proof.
+Generated results are excluded from the manifest because timings and interval
+representations can vary. This is not a cross-CAS replication.
 
-## What is trusted
-
-The classification theorem of Watkins, standard complex multiplication and
-modular-function identities described in the report, and FLINT's exact integer
-factorization, certified Hilbert class polynomial computation, and Arb ball
-arithmetic. This is not a Lean/Coq formalization and is not a cross-CAS replication.
-
-`data/` contains the earlier search records and the downloaded classical modular
-polynomial. `results/` contains machine-readable checks and exclusion ledgers.
-The modular polynomial is independently checked from its integer coefficients.
-No external network access is required to run the package after dependencies
-have been installed.
+[CONTRIBUTING.md](CONTRIBUTING.md) sets the evidence required for additional
+results. Research snapshot: 8 October 2026.
