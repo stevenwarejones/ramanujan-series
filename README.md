@@ -1,5 +1,14 @@
 # Ramanujan-Type Series for 1/π
 
+This project began with a circle: imagine admiring one on a museum wall, or
+tracing your way around a circular room. How does something so simple lead to
+Ramanujan's extraordinary formulas for π, full of factorials, square roots, and
+seemingly mysterious whole numbers? We started by exploring those series with
+that sense of curiosity about the circle's beauty and the arithmetic behind it.
+
+The exploration led to a concrete question we could investigate with mathematics
+and code:
+
 **How much convergence can simple algebraic constants buy?**
 
 Ramanujan found that π, the number connecting a circle's circumference to its
@@ -71,24 +80,29 @@ independently refereed or formally verified in a proof assistant.
 
 ## Fewer terms does not necessarily mean less time
 
-At a target absolute error below 10⁻¹⁰⁰⁰⁰, this implementation needs far fewer
-terms for the degree-32 identity, but takes longer overall:
+At a target absolute error below 10⁻¹⁰⁰⁰⁰, the default implementation gives:
 
 | Identity | Terms | Coefficient setup | Sum and error bound | Total |
 | --- | ---: | ---: | ---: | ---: |
-| Ramanujan (1103) | 1,253 | 0.00007 s | 0.69130 s | 0.69138 s |
-| Chudnovsky | 706 | 0.00014 s | 0.41801 s | 0.41815 s |
-| CM degree 32 | 28 | 3.26040 s | 0.01559 s | 3.27455 s |
+| Ramanujan (1103) | 1,253 | 0.00007 s | 0.67815 s | 0.67824 s |
+| Chudnovsky | 706 | 0.00014 s | 0.41704 s | 0.41719 s |
+| CM degree 32 | 28 | 0.08693 s | 0.01498 s | 0.10271 s |
 
 These are medians of five trials on one shared Linux machine, with one FLINT
 thread. Every trial rebuilds its coefficients. All three use the same simple
-summation and rigorous error-bound routine; none uses an optimized
-binary-splitting implementation. The degree-32 formula is faster in the
-summation stage here, but its setup dominates. This is a comparison of these
-implementations, not a universal speed ranking.
+summation and rigorous error-bound routine; none uses optimized binary splitting.
 
-[Full method, environment, and 1,000-digit results](REPORT.md#practical-evaluation-cost)
-are in the report; [raw samples](results/benchmark.json) are included.
+Finding all 32 polynomial roots at full precision costs much more than refining
+the one we need. Isolating it at low precision and then using certified Newton
+refinement reduces the degree-32 total from about 3.20 seconds to 0.103 seconds
+in a comparison run. That beats this simple Chudnovsky implementation at 10,000
+digits. At 1,000 digits, Chudnovsky is still faster: about 1.56 ms versus 11.4 ms.
+Digits per term, setup cost, and target accuracy all matter. This is a comparison
+of these implementations, not a speed record or a benchmark against optimized
+π software.
+
+[Full method, environment, before/after comparison, and 1,000-digit results](REPORT.md#practical-evaluation-cost)
+are in the report; [raw samples](results/benchmark_newton.json) are included.
 
 ## Technical scope
 
@@ -137,13 +151,20 @@ exact Sturm-bound test, and the algebraic construction and error bounds for the
 degree-32 identity. The full command reconstructs the candidate universe and
 replays the exhaustive degree-32 exclusion; it can take tens of minutes.
 
-GitHub Actions runs quick verification on pushes and pull requests. To request
-an exhaustive replay, use **Actions → Verify → Run workflow** and enable `full`.
-Timings are run separately and are not CI performance thresholds.
+GitHub Actions runs regression tests, quick verification, and a benchmark smoke
+test on Python 3.11 and 3.12. It checks that reproduction leaves the checkout
+clean, then builds and verifies a downloadable research bundle. To request an
+exhaustive replay, use **Actions → Verify → Run workflow** and enable `full`.
+Version tags publish verified bundles as GitHub Releases; see
+[verification and releases](RELEASING.md). Timings are not CI performance thresholds.
 
 Run without `python -O`: the programs intentionally use assertions. No network
 access is needed after dependencies are installed. The benchmark and verifier
-write their results into `results/`.
+write fresh results under ignored `results/latest/`, leaving the tracked
+snapshots in `results/` unchanged. The verifier prints its own fresh run directory;
+the benchmark defaults to `results/latest/benchmark.json`. Use `--output PATH`
+to select another benchmark destination. Published snapshots are updated only
+by deliberately reviewing and copying a run's output.
 
 ## Repository guide and trust assumptions
 
@@ -151,6 +172,8 @@ write their results into `results/`.
 | --- | --- |
 | [REPORT.md](REPORT.md) | Mathematical arguments, results, timings, sources, and limits |
 | [EXPLORATIONS.md](EXPLORATIONS.md) | Geometric motivation, research questions, and open directions |
+| [RELEASING.md](RELEASING.md) | CI tests, research bundles, and tagged releases |
+| [tests/](tests/) | Arithmetic, root-refinement, and output-isolation regression tests |
 | [code/](code/) | Construction, enumeration, exact checks, and benchmark |
 | [data/](data/) | Fixed inputs and search records |
 | [results/](results/) | Certificates, exclusion ledgers, timing samples, and logs |

@@ -186,11 +186,13 @@ learn how much work is required to specify where each large step should land.
 
 **Repository result.** That distinction is measurable. At a certified absolute
 error target below 10⁻¹⁰⁰⁰⁰, the degree-32 identity uses 28 terms in our benchmark;
-Chudnovsky's identity uses 706. Yet their measured total times are about 3.27
-seconds and 0.42 seconds, respectively, because the degree-32 setup is expensive.
-Both use the same direct-summation and error-bound routine. These are measurements
-of these implementations, not comparisons with optimized π algorithms. See the
-[protocol and raw-data links](REPORT.md#practical-evaluation-cost).
+Chudnovsky's identity uses 706. Computing every polynomial root at full precision
+makes the degree-32 setup expensive: about 3.20 seconds total in a comparison
+run. Isolating the needed root once at low precision and refining its certified
+interval reduces that to about 0.103 seconds, versus 0.417 seconds for our simple
+Chudnovsky implementation. At 1,000 digits, Chudnovsky remains faster. None of
+these implementations uses optimized binary splitting; the [report](REPORT.md#practical-evaluation-cost)
+gives the shared summation method, protocol, and limitations.
 
 **Interpretation.** “Maximal convergence” becomes a useful research target only
 after specifying a cost and a class of allowed formulas. Otherwise we can hide

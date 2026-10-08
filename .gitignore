@@ -5,3 +5,5 @@ venv/
 .DS_Store
 .pytest_cache/
 .ipynb_checkpoints/
+dist/
+results/latest/

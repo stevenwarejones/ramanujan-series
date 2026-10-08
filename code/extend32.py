@@ -5,6 +5,7 @@ over Q(x), the remainder H(j)=(u(x)j+v(x))/a(x)^h forces u(x)=v(x)=0.
 Thus gcd(u,v), rather than the full norm resultant, contains every eligible x.
 No conjecture about factor degrees or isogeny splitting is needed for this cut.
 """
+from run_paths import output_path,generated_input
 import json,time,math
 from pathlib import Path
 from flint import fmpz_poly,arb,ctx
@@ -32,7 +33,7 @@ def rouche(p,den):
 
 def main():
     ctx.dps=100;start=time.perf_counter();D=32;den=10**366
-    cat=json.loads((ROOT/'results'/'catalogue64.json').read_text())
+    cat=json.loads(generated_input('catalogue64.json').read_text())
     can=json.loads((ROOT/'results'/'candidate32.json').read_text());winner=fmpz_poly(can['p'])
     roots=winner.complex_roots();wz=min((z for z,e in roots),key=lambda z:float(abs(z).log()))
     assert abs(wz)<arb(1)/den
@@ -78,7 +79,7 @@ def main():
     result=dict(status='PASS' if not potential else 'CHALLENGERS',budget=32,orders=len(cat['orders']),
                 empty_covers=empty,Rouche_exclusions=excluded,factor_sets=factor_sets,
                 candidate_N=73117,potential=potential,ledger=ledger,elapsed=time.perf_counter()-start)
-    (ROOT/'results'/'extension32.json').write_text(json.dumps(result,indent=2))
+    output_path('extension32.json').write_text(json.dumps(result,indent=2))
     print(json.dumps({k:v for k,v in result.items() if k!='ledger'}),flush=True)
 
 if __name__=='__main__':main()

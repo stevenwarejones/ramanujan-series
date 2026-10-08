@@ -1,3 +1,4 @@
+from run_paths import output_path
 import json,hashlib,time
 from pathlib import Path
 from flint import fmpz_poly,arb,ctx
@@ -53,4 +54,4 @@ res={'candidate_polynomials':len(r['records']),'exact_Rouche_exclusions':exclusi
  'winners':{str(N):{'d':wins[N,16][0]['d'],'parameter_degree':wins[N,16][0]['parameter_degree'],
  'full_degree':wins[N,16][0]['B_degree'],'x':str(wins[N,16][1]),
  'rate':str(-abs(wins[N,16][1]).log()/arb(10).log())} for N in (2,3,4)}}
-(OUT.parent/'results'/'reranked16.json').write_text(json.dumps(res,indent=2));print(json.dumps(res,indent=2))
+output_path('reranked16.json').write_text(json.dumps(res,indent=2));print(json.dumps(res,indent=2))

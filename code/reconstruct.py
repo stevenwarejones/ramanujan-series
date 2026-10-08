@@ -3,6 +3,7 @@
 This is a second run with an independent conductor enumeration, not a second CAS.
 FLINT factorization and certified Hilbert class polynomials are trusted dependencies.
 """
+from run_paths import output_path
 import json, time, hashlib
 from pathlib import Path
 from flint import fmpz_poly
@@ -65,7 +66,7 @@ def main():
                 eligible_levels_2_3_4=len(found),checked_level1_orders=len(seen1),
                 regenerated_every_candidate=True,checked_all_factor_products=True,
                 elapsed=time.perf_counter()-start,ledger=ledger)
-    (ROOT/'results'/'reconstruction.json').write_text(json.dumps(result,indent=2))
+    output_path('reconstruction.json').write_text(json.dumps(result,indent=2))
     print('PASS',json.dumps({k:v for k,v in result.items() if k!='ledger'}),flush=True)
 
 if __name__=='__main__':main()

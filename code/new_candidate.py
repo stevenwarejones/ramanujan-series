@@ -3,6 +3,7 @@
 A/B containment uses the separately stated CM descent lemma. The output is
 not a proof of global degree-32 optimality and does not give an explicit A.
 """
+from run_paths import output_path
 import json,time,sys
 from pathlib import Path
 from flint import fmpz_poly,arb,acb,ctx
@@ -60,7 +61,7 @@ def main():
                 full_degree_status='32, conditional on the stated standard CM A/B descent lemma',
                 optimality_status='not certified across all four families',
                 explicit_A_status='not constructed in this certificate',elapsed=time.perf_counter()-start)
-    (ROOT/'results'/'candidate32.json').write_text(json.dumps(result,indent=2))
+    output_path('candidate32.json').write_text(json.dumps(result,indent=2))
     print('saved',time.perf_counter()-start,flush=True)
 
 if __name__=='__main__':main()

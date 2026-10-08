@@ -16,12 +16,13 @@ import time
 import flint
 from flint import arb, ctx
 from identity32 import construct
+from run_paths import output_path
 
 ROOT = Path(__file__).resolve().parents[1]
 METHODS = ("ramanujan-1103", "chudnovsky", "cm-degree-32")
 
 
-def coefficients(method, dps):
+def coefficients(method, dps, root_method='newton'):
     ctx.dps = dps
     if method == "ramanujan-1103":
         factor = 2 * arb(2).sqrt() / 9801
@@ -30,7 +31,7 @@ def coefficients(method, dps):
         factor = 12 / (arb(640320) * arb(640320).sqrt())
         return factor * 13591409, factor * 545140134, -arb(1728) / 640320**3, arb(1) / 6
     if method == "cm-degree-32":
-        A, B, x, _ = construct(dps)
+        A, B, x, _ = construct(dps, root_method=root_method)
         return A, B, x, arb(1) / 4
     raise ValueError(method)
 
@@ -65,9 +66,9 @@ def certified_sum(A, B, x, s, digits):
     raise ArithmeticError("Precision budget insufficient; target error not certified")
 
 
-def trial(method, digits, guard):
+def trial(method, digits, guard, root_method='newton'):
     start = time.perf_counter()
-    A, B, x, s = coefficients(method, digits + guard)
+    A, B, x, s = coefficients(method, digits + guard, root_method)
     setup_done = time.perf_counter()
     terms, error, approximation, pi_interval = certified_sum(A, B, x, s, digits)
     end = time.perf_counter()
@@ -94,7 +95,9 @@ def main():
     ap.add_argument('--digits', nargs='+', type=int, default=[1000, 10000])
     ap.add_argument('--repeats', type=int, default=5)
     ap.add_argument('--guard', type=int, default=128)
-    ap.add_argument('--output', type=Path, default=ROOT/'results'/'benchmark.json')
+    ap.add_argument('--output', type=Path, default=output_path('benchmark.json'))
+    ap.add_argument('--root-method', choices=['newton', 'all-roots'], default='newton',
+                    help='degree-32 root construction; all-roots retains the baseline')
     args = ap.parse_args()
     if args.repeats < 1 or args.guard < 32 or any(d < 1 for d in args.digits):
         ap.error('positive digits/repeats and at least 32 guard digits are required')
@@ -104,13 +107,13 @@ def main():
         # Warm imports, library paths, and filesystem caches. Rebuild coefficients
         # for every measured trial; no coefficient value is carried between trials.
         for method in METHODS:
-            trial(method, digits, args.guard)
+            trial(method, digits, args.guard, args.root_method)
         samples = {method: [] for method in METHODS}
         for repeat in range(args.repeats):
             # Rotate order to reduce consistent first/last-position bias.
             order = METHODS[repeat % len(METHODS):] + METHODS[:repeat % len(METHODS)]
             for method in order:
-                samples[method].append(trial(method, digits, args.guard))
+                samples[method].append(trial(method, digits, args.guard, args.root_method))
         for method in METHODS:
             trials = samples[method]
             assert len({t['terms'] for t in trials}) == 1
@@ -123,13 +126,13 @@ def main():
             row['max_total_seconds'] = max(t['total_seconds'] for t in trials)
             rows.append(row)
             print(json.dumps({k:v for k,v in row.items() if k != 'trials'}), flush=True)
-    inputs = ['code/benchmark.py', 'code/identity32.py', 'requirements.txt',
+    inputs = ['code/benchmark.py', 'code/identity32.py', 'code/run_paths.py', 'requirements.txt',
               'results/candidate32.json', 'data/phi_j_17.txt']
     result = dict(status='PASS', timestamp_utc=datetime.now(timezone.utc).isoformat(),
                   python=platform.python_version(), python_flint=flint.__version__,
                   platform=platform.platform(), cpu=cpu_model(), flint_threads=ctx.threads,
                   repeats=args.repeats, warmups_per_method_and_target=1,
-                  guard_digits=args.guard,
+                  guard_digits=args.guard, degree32_root_method=args.root_method,
                   timed='coefficient reconstruction plus direct summation, tail and rounding bounds',
                   excluded='interpreter/import startup, theorem replay, independent pi check, JSON output',
                   binary_splitting=False, cached_coefficient_values=False,

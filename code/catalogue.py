@@ -4,6 +4,7 @@ Completeness beyond the finite enumeration relies on Watkins (2004), p.23.
 For f>1, phi(f) <= f prod(1-chi(p)/p) <= u H/h_K, and
 phi(f) >= sqrt(f/2), so f <= 2 (u H/h_K)^2 suffices.
 """
+from run_paths import output_path
 import argparse, json, math, time
 from pathlib import Path
 
@@ -84,7 +85,7 @@ def build(H):
     result=dict(class_number_bound=H,discriminant_bound=limit,fields=len(fields),
                 orders=[orders[d] for d in sorted(orders)],watkins_checks=H,
                 conductor_bound='f <= 2 (u H/h_K)^2',elapsed=time.perf_counter()-t)
-    path=ROOT/'results'/f'catalogue{H}.json';path.write_text(json.dumps(result,indent=2))
+    path=output_path(f'catalogue{H}.json');path.write_text(json.dumps(result,indent=2))
     print('CATALOGUE',H,len(fields),len(orders),'max order',max(orders),'seconds',result['elapsed'],flush=True)
     return result
 
