@@ -549,6 +549,30 @@ for constructing π series or as the fastest practical π algorithm.
    charged kernel cost. This tests whether level 2's advantage survives a wider
    contest, rather than changing the rules invisibly.
 
+## 9. Companion study: elliptic logarithmic coefficients
+
+The separate [elliptic-companions note](research/elliptic-companions/NOTE.md)
+studies the fourth logarithmic parameter coefficient of
+F(1/2+s,1/2+s;1;1/2). It derives an explicit square-torus path, an odd-harmonic
+constant-term representation, and monotone approximations with rigorous tails.
+A standard-library certificate encloses the coefficient to width below 10⁻¹⁵⁰
+using 61 positive odd harmonics and checks an independent Gauss-series evaluation.
+
+The [bounded reduction audit](research/elliptic-companions/BOUNDED_REDUCTION.md)
+fixes the torsion-point alphabet, checks the extra differential and changed path
+introduced by a quarter-turn, and supplies an exact witness excluding a stated
+28-function rational linear ansatz. This is a functional exclusion, not
+independence of values at the CM point. No finite familiar-constant evaluation
+was obtained. The underlying elliptic/theta theory is classical; priority of
+the specific application and bounds is unestablished. Sources and full scope
+are in those notes. The study changes none of this report's frontier or
+completeness claims and is not a π computation record.
+
+Validation consists of outward integer interval certificates, an exact rational
+witness replay, independent series comparisons, and negative controls. Optional
+SymPy geometry checks and explicitly non-certified mpmath cross-checks are also
+provided. The repository's existing test discovery runs the regression tests.
+
 ## Sources
 
 1. Mark Watkins, *Class numbers of imaginary quadratic fields* (2004), concluding

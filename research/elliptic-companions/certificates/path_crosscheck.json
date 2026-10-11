@@ -1,0 +1,51 @@
+{
+  "precision": 100,
+  "canonical_alphabet_errors": [
+    "1.40266e-101",
+    "5.95765e-101",
+    "2.24425e-101",
+    "5.46949e-102"
+  ],
+  "scope": "Floating-point cross-checks, not interval certificates.",
+  "path_checks": [
+    {
+      "x_over_r": "0.0",
+      "theta_over_pi": "0.0",
+      "maximum_error": "5.71494e-101"
+    },
+    {
+      "x_over_r": "0.25",
+      "theta_over_pi": "0.18037155994329194861836844533444590126213616830359317371902699158381638699632971",
+      "maximum_error": "8.57241e-101"
+    },
+    {
+      "x_over_r": "0.5",
+      "theta_over_pi": "0.32043662172440363537277818643351662472806323735591110332888296764193126090577322",
+      "maximum_error": "2.1431e-101"
+    },
+    {
+      "x_over_r": "0.75",
+      "theta_over_pi": "0.42295283693991836198872893278911878761364085306398277080739690853318040432135527",
+      "maximum_error": "2.94541e-101"
+    },
+    {
+      "x_over_r": "1.0",
+      "theta_over_pi": "0.5",
+      "maximum_error": "3.19475e-101"
+    }
+  ],
+  "generating_function_checks": [
+    {
+      "s": "-0.7",
+      "absolute_error": "0.0"
+    },
+    {
+      "s": "0.3",
+      "absolute_error": "0.0"
+    },
+    {
+      "s": "1.2",
+      "absolute_error": "0.0"
+    }
+  ]
+}

@@ -37,6 +37,12 @@ For the geometric motivation—from circles and torus paths to higher-dimensiona
 questions—read [Geometric Intuition and Open Questions](EXPLORATIONS.md). It
 separates intuition, established mathematics, repository results, and open directions.
 
+A companion study, [Elliptic companions](research/elliptic-companions/README.md),
+follows a concrete path on the square torus to a hypergeometric coefficient.
+It explains how interacting Fourier frequencies organize that coefficient,
+provides rigorous approximation bounds, and records a bounded reduction
+attempt. It is separate from the algebraic-degree frontier below.
+
 ## What “complicated” means here
 
 We measure **algebraic degree**, one way to describe the arithmetic complexity

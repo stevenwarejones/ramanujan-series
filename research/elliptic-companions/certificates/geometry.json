@@ -1,0 +1,44 @@
+{
+  "curve": "Y^2=X^3-X",
+  "geometry_checks": "birational map, differential, logarithm, involution, endpoints and both exact order-four doublings passed",
+  "rotation": "(X,Y)->(-X,iY)",
+  "product_identity": "g(rho(P))*g(P)=iX(P)",
+  "differential_action": [
+    "rho^* eta=xi-eta",
+    "rho^* xi=xi"
+  ],
+  "letters": [
+    "eta=dlog(g)",
+    "xi=dlog(X)"
+  ],
+  "residue_matrix_points": [
+    "(1,0)",
+    "(0,0)",
+    "(-1,0)",
+    "O"
+  ],
+  "residue_matrix": [
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      -1,
+      0
+    ],
+    [
+      -1,
+      -2
+    ]
+  ],
+  "residue_rank": 2,
+  "half_period_actions": [
+    "translation_(1,0): g->1/g",
+    "translation_(-1,0): g->-g"
+  ],
+  "scope": "Exact symbolic audit; rotation enlarges the one-letter logarithmic alphabet and changes the path. No special-value independence theorem."
+}

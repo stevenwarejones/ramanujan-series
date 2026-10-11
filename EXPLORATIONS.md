@@ -144,6 +144,14 @@ optimization table remains unestablished.
 coefficient in the same smaller number field? That is the precise version of
 asking which journeys reveal the same hidden organization.
 
+**A worked companion study.** [Elliptic companions](research/elliptic-companions/README.md)
+fixes a path between order-four points on the square torus. Its logarithmic
+weight becomes odd cosine waves. Averaging keeps frequency combinations that
+sum to zero, including 1 + 1 + 1 − 3 = 0. This explains the interaction in a
+specific fourth hypergeometric coefficient and yields certified approximations.
+The bounded follow-up does not evaluate that coefficient in familiar constants;
+it records exactly which attempted simplifications were tested.
+
 ## 4. Beyond the torus: choose a quantity as well as a shape
 
 **Open directions.** More elaborate spaces widen the possible questions, but
